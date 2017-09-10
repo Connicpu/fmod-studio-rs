@@ -49,10 +49,13 @@ fn main() {
 
             if let Some(file_name) = file_name_result {
                 let file_name = file_name.to_str().unwrap();
-                if file_name.ends_with(".dll") || file_name.ends_with(".dylib") || file_name.contains(".so") {
+                if file_name.ends_with(".dll") || file_name.ends_with(".dylib") ||
+                    file_name.contains(".so")
+                {
                     new_file_path.push(file_name);
                     std::fs::copy(&entry_path, new_file_path.as_path())
-                        .expect("Can't copy from DLL dir");
+                        .map_err(|_| eprintln!("Can't copy from DLL dir"))
+                        .ok();
                 }
             }
         }
