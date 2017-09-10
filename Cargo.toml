@@ -4,7 +4,3 @@ version = "0.1.0"
 authors = ["Connie Hilarides <conni_h@outlook.com>"]
 
 [dependencies]
-
-
-[build-dependencies]
-bindgen = "0.30"
