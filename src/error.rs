@@ -1,7 +1,7 @@
-use ffi::FMOD_RESULT;
-
 use std::{self, fmt};
 use std::error::Error;
+
+use ffi::FMOD_RESULT;
 
 pub type Result<T> = std::result::Result<T, FmodError>;
 
@@ -275,27 +275,49 @@ impl FmodError {
         use self::FmodError::*;
 
         match self {
-            BadCommand => "Tried to call a function on a data type that does not allow this type of functionality (ie calling Sound::lock on a streaming sound).",
+            BadCommand => {
+                "Tried to call a function on a data type that does not allow this type of functionality (ie calling Sound::lock on a streaming sound)."
+            }
             ChannelAlloc => "Error trying to allocate a channel.",
             ChannelStolen => "The specified channel has been reused to play another sound.",
             Dma => "DMA Failure.  See debug output for more information.",
-            DspConnection => "DSP connection error.  Connection possibly caused a cyclic dependency or connected dsps with incompatible buffer counts.",
-            DspDontprocess => "DSP return code from a DSP process query callback.  Tells mixer not to call the process callback and therefore not consume CPU.  Use this to optimize the DSP graph.",
-            DspFormat => "DSP Format error.  A DSP unit may have attempted to connect to this network with the wrong format, or a matrix may have been set with the wrong size if the target unit has a specified channel map.",
-            DspInuse => "DSP is already in the mixer's DSP network. It must be removed before being reinserted or released.",
+            DspConnection => {
+                "DSP connection error.  Connection possibly caused a cyclic dependency or connected dsps with incompatible buffer counts."
+            }
+            DspDontprocess => {
+                "DSP return code from a DSP process query callback.  Tells mixer not to call the process callback and therefore not consume CPU.  Use this to optimize the DSP graph."
+            }
+            DspFormat => {
+                "DSP Format error.  A DSP unit may have attempted to connect to this network with the wrong format, or a matrix may have been set with the wrong size if the target unit has a specified channel map."
+            }
+            DspInuse => {
+                "DSP is already in the mixer's DSP network. It must be removed before being reinserted or released."
+            }
             DspNotFound => "DSP connection error.  Couldn't find the DSP unit specified.",
-            DspReserved => "DSP operation error.  Cannot perform operation on this DSP as it is reserved by the system.",
-            DspSilence => "DSP return code from a DSP process query callback.  Tells mixer silence would be produced from read, so go idle and not consume CPU.  Use this to optimize the DSP graph.",
+            DspReserved => {
+                "DSP operation error.  Cannot perform operation on this DSP as it is reserved by the system."
+            }
+            DspSilence => {
+                "DSP return code from a DSP process query callback.  Tells mixer silence would be produced from read, so go idle and not consume CPU.  Use this to optimize the DSP graph."
+            }
             DspType => "DSP operation cannot be performed on a DSP of this type.",
             FileBad => "Error loading file.",
-            FileCouldNotSeek => "Couldn't perform seek operation.  This is a limitation of the medium (ie netstreams) or the file format.",
+            FileCouldNotSeek => {
+                "Couldn't perform seek operation.  This is a limitation of the medium (ie netstreams) or the file format."
+            }
             FileDiskEjected => "Media was ejected while reading.",
-            FileEof => "End of file unexpectedly reached while trying to read essential data (truncated?).",
+            FileEof => {
+                "End of file unexpectedly reached while trying to read essential data (truncated?)."
+            }
             FileEndOfData => "End of current chunk reached while trying to read data.",
             FileNotFound => "File not found.",
             Format => "Unsupported file or audio format.",
-            HeaderMismatch => "There is a version mismatch between the FMOD header and either the FMOD Studio library or the FMOD Low Level library.",
-            Http => "A HTTP error occurred. This is a catch-all for HTTP errors not listed elsewhere.",
+            HeaderMismatch => {
+                "There is a version mismatch between the FMOD header and either the FMOD Studio library or the FMOD Low Level library."
+            }
+            Http => {
+                "A HTTP error occurred. This is a catch-all for HTTP errors not listed elsewhere."
+            }
             HttpAccess => "The specified resource requires authentication or is forbidden.",
             HttpProxyAuth => "Proxy authentication is required to access the specified resource.",
             HttpServerError => "A HTTP server error occurred.",
@@ -307,46 +329,88 @@ impl FmodError {
             InvalidHandle => "An invalid object handle was used.",
             InvalidParam => "An invalid parameter was passed to this function.",
             InvalidPosition => "An invalid seek position was passed to this function.",
-            InvalidSpeaker => "An invalid speaker was passed to this function based on the current speaker mode.",
+            InvalidSpeaker => {
+                "An invalid speaker was passed to this function based on the current speaker mode."
+            }
             InvalidSyncPoint => "The syncpoint did not come from this sound handle.",
             InvalidThread => "Tried to call a function on a thread that is not supported.",
             InvalidVector => "The vectors passed in are not unit length, or perpendicular.",
             MaxAudible => "Reached maximum audible playback count for this sound's soundgroup.",
             Memory => "Not enough memory or resources.",
-            MemoryCantPoint => "Can't use FMOD_OPENMEMORY_POINT on non PCM source data, or non mp3/xma/adpcm data if FMOD_CREATECOMPRESSEDSAMPLE was used.",
-            Needs3d => "Tried to call a command on a 2d sound when the command was meant for 3d sound.",
+            MemoryCantPoint => {
+                "Can't use FMOD_OPENMEMORY_POINT on non PCM source data, or non mp3/xma/adpcm data if FMOD_CREATECOMPRESSEDSAMPLE was used."
+            }
+            Needs3d => {
+                "Tried to call a command on a 2d sound when the command was meant for 3d sound."
+            }
             NeedsHardware => "Tried to use a feature that requires hardware support.",
             NetConnect => "Couldn't connect to the specified host.",
-            NetSocketError => "A socket error occurred.  This is a catch-all for socket-related errors not listed elsewhere.",
+            NetSocketError => {
+                "A socket error occurred.  This is a catch-all for socket-related errors not listed elsewhere."
+            }
             NetUrl => "The specified URL couldn't be resolved.",
             NetWouldBlock => "Operation on a non-blocking socket could not complete immediately.",
-            NotReady => "Operation could not be performed because specified sound/DSP connection is not ready.",
-            OutputAllocated => "Error initializing output device, but more specifically, the output device is already in use and cannot be reused.",
+            NotReady => {
+                "Operation could not be performed because specified sound/DSP connection is not ready."
+            }
+            OutputAllocated => {
+                "Error initializing output device, but more specifically, the output device is already in use and cannot be reused."
+            }
             OutputCreateBuffer => "Error creating hardware sound buffer.",
-            OutputDriverCall => "A call to a standard soundcard driver failed, which could possibly mean a bug in the driver or resources were missing or exhausted.",
+            OutputDriverCall => {
+                "A call to a standard soundcard driver failed, which could possibly mean a bug in the driver or resources were missing or exhausted."
+            }
             OutputFormat => "Soundcard does not support the specified format.",
             OutputInit => "Error initializing output device.",
-            OutputNoDrivers => "The output device has no drivers installed.  If pre-init, FMOD_OUTPUT_NOSOUND is selected as the output mode.  If post-init, the function just fails.",
+            OutputNoDrivers => {
+                "The output device has no drivers installed.  If pre-init, FMOD_OUTPUT_NOSOUND is selected as the output mode.  If post-init, the function just fails."
+            }
             Plugin => "An unspecified error has been returned from a plugin.",
             PluginMissing => "A requested output, dsp unit type or codec was not available.",
-            PluginResource => "A resource that the plugin requires cannot be found. (ie the DLS file for MIDI playback)",
+            PluginResource => {
+                "A resource that the plugin requires cannot be found. (ie the DLS file for MIDI playback)"
+            }
             PluginVersion => "A plugin was built with an unsupported SDK version.",
             Record => "An error occurred trying to initialize the recording device.",
-            ReverbChannelGroup => "Reverb properties cannot be set on this channel because a parent channelgroup owns the reverb connection.",
-            ReverbInstance => "Specified instance in FMOD_REVERB_PROPERTIES couldn't be set. Most likely because it is an invalid instance number or the reverb doesn't exist.",
-            Subsounds => "The error occurred because the sound referenced contains subsounds when it shouldn't have, or it doesn't contain subsounds when it should have.  The operation may also not be able to be performed on a parent sound.",
-            SubsoundAllocated => "This subsound is already being used by another sound, you cannot have more than one parent to a sound.  Null out the other parent's entry first.",
-            SubsoundCantMove => "Shared subsounds cannot be replaced or moved from their parent stream, such as when the parent stream is an FSB file.",
+            ReverbChannelGroup => {
+                "Reverb properties cannot be set on this channel because a parent channelgroup owns the reverb connection."
+            }
+            ReverbInstance => {
+                "Specified instance in FMOD_REVERB_PROPERTIES couldn't be set. Most likely because it is an invalid instance number or the reverb doesn't exist."
+            }
+            Subsounds => {
+                "The error occurred because the sound referenced contains subsounds when it shouldn't have, or it doesn't contain subsounds when it should have.  The operation may also not be able to be performed on a parent sound."
+            }
+            SubsoundAllocated => {
+                "This subsound is already being used by another sound, you cannot have more than one parent to a sound.  Null out the other parent's entry first."
+            }
+            SubsoundCantMove => {
+                "Shared subsounds cannot be replaced or moved from their parent stream, such as when the parent stream is an FSB file."
+            }
             TagNotFound => "The specified tag could not be found or there are no tags.",
-            TooManyChannels => "The sound created exceeds the allowable input channel count.  This can be increased using the 'maxinputchannels' parameter in System::setSoftwareFormat.",
-            Truncated => "The retrieved string is too long to fit in the supplied buffer and has been truncated.",
-            Unimplemented => "Something in FMOD hasn't been implemented when it should be! contact support!",
-            Uninitialized => "This command failed because System::init or System::setDriver was not called.",
-            Unsupported => "A command issued was not supported by this object.  Possibly a plugin without certain callbacks specified.",
+            TooManyChannels => {
+                "The sound created exceeds the allowable input channel count.  This can be increased using the 'maxinputchannels' parameter in System::setSoftwareFormat."
+            }
+            Truncated => {
+                "The retrieved string is too long to fit in the supplied buffer and has been truncated."
+            }
+            Unimplemented => {
+                "Something in FMOD hasn't been implemented when it should be! contact support!"
+            }
+            Uninitialized => {
+                "This command failed because System::init or System::setDriver was not called."
+            }
+            Unsupported => {
+                "A command issued was not supported by this object.  Possibly a plugin without certain callbacks specified."
+            }
             Version => "The version number of this file format is not supported.",
             EventAlreadyLoaded => "The specified bank has already been loaded.",
-            EventLiveUpdateBusy => "The live update connection failed due to the game already being connected.",
-            EventLiveUpdateMismatch => "The live update connection failed due to the game data being out of sync with the tool.",
+            EventLiveUpdateBusy => {
+                "The live update connection failed due to the game already being connected."
+            }
+            EventLiveUpdateMismatch => {
+                "The live update connection failed due to the game data being out of sync with the tool."
+            }
             EventLiveUpdateTimeout => "The live update connection timed out.",
             EventNotFound => "The requested event, bus or vca could not be found.",
             StudioUninitialized => "The Studio::System object is not yet initialized.",

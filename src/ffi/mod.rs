@@ -337,6 +337,7 @@ pub type FMOD_PORT_TYPE = ::std::os::raw::c_uint;
 pub type FMOD_PORT_INDEX = ::std::os::raw::c_ulonglong;
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[must_use]
 pub enum FMOD_RESULT {
     FMOD_OK = 0,
     FMOD_ERR_BADCOMMAND = 1,
