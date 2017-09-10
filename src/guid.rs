@@ -1,5 +1,5 @@
 use std::ffi::CString;
-use std::mem::uninitialized;
+use std::mem::{uninitialized, zeroed};
 
 use ffi::*;
 use error::*;
@@ -21,5 +21,11 @@ impl Guid {
 
             Ok(Guid { inner: guid })
         }
+    }
+}
+
+impl Default for Guid {
+    fn default() -> Guid {
+        unsafe { zeroed() }
     }
 }
