@@ -6,7 +6,7 @@ use std::path::PathBuf;
 fn main() {
     let target = env::var("TARGET").unwrap();
     let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
-    
+
     let mut lib_dir = manifest_dir.clone();
     lib_dir.push("lib");
 
@@ -28,6 +28,14 @@ fn main() {
         lib_dir.push("64");
     } else {
         lib_dir.push("32");
+    }
+
+    if target.contains("x86_64-pc-windows-msvc") {
+        println!("cargo:rustc-link-lib=fmod64_vc");
+        println!("cargo:rustc-link-lib=fmodstudio64_vc");
+    } else {
+        println!("cargo:rustc-link-lib=fmod");
+        println!("cargo:rustc-link-lib=fmodstudio");
     }
 
     println!("cargo:rustc-link-search=all={}", lib_dir.display());
