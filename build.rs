@@ -43,17 +43,22 @@ fn main() {
         for entry in read_dir {
             let entry_path = entry.expect("Invalid fs entry").path();
             let file_name_result = entry_path.file_name();
-            let mut new_file_path = manifest_dir.clone();
-            new_file_path.push("target");
-            new_file_path.push(env::var("PROFILE").unwrap());
+            let mut new_file_path_0 = manifest_dir.clone();
+            new_file_path_0.push("target");
+            new_file_path_0.push(env::var("PROFILE").unwrap());
+            let mut new_file_path_1 = PathBuf::from(env::var("OUT_DIR").unwrap());
 
             if let Some(file_name) = file_name_result {
                 let file_name = file_name.to_str().unwrap();
                 if file_name.ends_with(".dll") || file_name.ends_with(".dylib") ||
                     file_name.contains(".so")
                 {
-                    new_file_path.push(file_name);
-                    std::fs::copy(&entry_path, new_file_path.as_path())
+                    new_file_path_0.push(&file_name);
+                    new_file_path_1.push(&file_name);
+                    std::fs::copy(&entry_path, new_file_path_0.as_path())
+                        .map_err(|_| eprintln!("Can't copy from DLL dir"))
+                        .ok();
+                    std::fs::copy(&entry_path, new_file_path_1.as_path())
                         .map_err(|_| eprintln!("Can't copy from DLL dir"))
                         .ok();
                 }
