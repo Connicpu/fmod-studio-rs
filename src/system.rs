@@ -143,6 +143,17 @@ impl System {
         }
     }
 
+    pub fn lookup_id(&self, id: &str) -> Result<Guid> {
+        unsafe {
+            let mut guid = mem::uninitialized();
+            let cstr = CString::new(id).unwrap();
+
+            FMOD_Studio_System_LookupID(self.ptr, cstr.as_ptr(), &mut guid).to_err()?;
+
+            Ok(Guid { inner: guid })
+        }
+    }
+
     pub unsafe fn as_ptr(&self) -> *mut FMOD_STUDIO_SYSTEM {
         self.ptr
     }

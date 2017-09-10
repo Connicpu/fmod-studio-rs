@@ -1,8 +1,7 @@
-use std::{fmt, mem, ptr};
+use std::ptr;
 
 use ffi::*;
 use error::*;
-use guid::Guid;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
